@@ -1,0 +1,12 @@
+﻿<Window x:Class="EtsySpy.Windows.ShopWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EtsySpy.Windows"
+        mc:Ignorable="d"
+        Title="Shop Details" Height="300" Width="597.744" ResizeMode="NoResize" Icon="/EtsySpy;component/etsy-thumb.png">
+    <Grid>
+        
+    </Grid>
+</Window>

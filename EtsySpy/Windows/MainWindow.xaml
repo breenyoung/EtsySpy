@@ -39,26 +39,26 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Name="lblResultCount" Content="{Binding ElementName=EtsySpy, Path=ProductResultCount}" ContentStringFormat="Products Found: {0}" Visibility="Hidden"/>
-                <Label Name="lblShopDetails" Content="Shop Details" Visibility="Hidden" Style="{StaticResource LabelLinkStyle}"/>
+                <Label Name="lblShopDetails" Content="Shop Details" Visibility="Hidden" />
             </StackPanel>
 
         </StackPanel>
 
-        <StackPanel HorizontalAlignment="Stretch" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+        <StackPanel Margin="10,10,0,0" VerticalAlignment="Top" Grid.Row="0" Grid.Column="1" Orientation="Vertical">
 
             <Label Content="Recent Searches"/>
 
-            <ListBox x:Name="lbQueryHistory">
-                
+            <ListBox x:Name="lbQueryHistory" ItemsSource="{Binding ElementName=EtsySpy, Path=QueryHistory}" SelectionChanged="lbQueryHistory_SelectionChanged">
+
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Label Style="{StaticResource LabelLinkStyle}" Content="{Binding QueryText}"/>
+                        <TextBlock Style="{StaticResource LabelLinkStyle}" Text="{Binding QueryText}" />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
 
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel>
+                        <WrapPanel Orientation="Horizontal" Width="444">
 
                         </WrapPanel>
                     </ItemsPanelTemplate>

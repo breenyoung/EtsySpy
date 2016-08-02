@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using EtsySpy.Classes;
@@ -23,8 +24,12 @@ namespace EtsySpy.Windows
 
         public int ProductResultCount { get; set; }
 
+        public List<EtsyQuery> QueryHistory { get; set; } 
+
         public MainWindow()
         {
+            this.QueryHistory = historyManager.GetQueryHistory().History;
+
             InitializeComponent();
             SetDataGridItemProperties();
 
@@ -35,7 +40,7 @@ namespace EtsySpy.Windows
                 rbByShop.IsChecked = true;
             }
 
-            RebindQueryHistory();
+            //RebindQueryHistory();
 
             /*
             if (Settings.Default.NeedsUpgrade)
@@ -110,7 +115,7 @@ namespace EtsySpy.Windows
                 GetEtsyProductResultsAsync(tbQuery.Text);
             }
             
-            RebindQueryHistory();
+            //RebindQueryHistory();
         }
 
         async void GetEtsyProductResultsAsync(string id)
@@ -128,6 +133,7 @@ namespace EtsySpy.Windows
             if (etsyProductResults.Count > 0)
             {
                 historyManager.SaveLastQuery(tbQuery.Text, tbQuery.Text, EtsyQuery.QueryTypes.Product);
+                lbQueryHistory.Items.Refresh();
             }
 
             lblResultCount.Visibility = Visibility.Visible;
@@ -149,6 +155,7 @@ namespace EtsySpy.Windows
             if (etsyShopResults.Count > 0)
             {
                 historyManager.SaveLastQuery(tbQuery.Text, tbQuery.Text, EtsyQuery.QueryTypes.Shop);
+                lbQueryHistory.Items.Refresh();
             }
 
 
@@ -217,6 +224,30 @@ namespace EtsySpy.Windows
         private void EtsySpy_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Settings.Default.Save();
+        }
+
+        private void lbQueryHistory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lbQueryHistory.SelectedItem != null)
+            {
+                EtsyQuery q = (EtsyQuery)lbQueryHistory.SelectedItem;
+                tbQuery.Text = q.QueryText;
+
+                if (q.QueryType == EtsyQuery.QueryTypes.Product)
+                {
+                    rbByProduct.IsChecked = true;
+                }
+                else
+                {
+                    rbByShop.IsChecked = true;
+                }
+
+                lbQueryHistory.SelectedItem = null;
+
+            }
+
+
+
         }
     }
 }
